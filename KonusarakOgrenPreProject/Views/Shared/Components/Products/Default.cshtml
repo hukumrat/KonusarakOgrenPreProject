@@ -1,0 +1,79 @@
+﻿@using KonusarakOgrenPreProject.Areas.Admin.Models
+@model List<Product>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+<section class="site-section border-bottom" id="products">
+
+    <div class="container">
+        <div class="row mb-5 justify-content-center">
+            <div class="col-md-8 text-center">
+                <h2 class="section-title mb-3" data-aos="fade-up" data-aos-delay="">Products</h2>
+                <p class="lead" data-aos="fade-up" data-aos-delay="100">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus minima neque tempora reiciendis.</p>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in @Model)
+            {
+                <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="">
+                <div class="team-member">
+                    <figure>
+                        <ul class="social">
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+                                bool isSysadmin = currentUser.IsInRole("sysadmin");
+                                bool isAdmin = currentUser.IsInRole("admin");
+                                bool isCustomer = currentUser.IsInRole("customer");
+
+                                    @if(isCustomer){
+                                        <form asp-controller="Products" asp-action="Buy" asp-route-id="@item.Id" method="post"><li><button type="submit" class="btn btn-outline-info" >BUY</button></li></form>
+                                        <li><a type="button"  class="btn btn-outline-info" onclick="commentProduct()">Comment</a></li>
+                                    }
+                                    @if (isSysadmin)
+                                    {
+                                        <li><a type="button"  class="btn btn-outline-info" onclick="editProduct()">EDIT</a></li>
+                                    }
+                                    
+
+                                    @if (isSysadmin)
+                                    {
+                                         <form asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id" method="post"><li><button type="submit" class="btn btn-outline-info" >Delete</button></li></form>
+                                    }
+                                    
+                            }
+                            else
+                            {
+                               <li><a type="button"  class="btn btn-outline-info" href="#">BUYMA</a></li>
+                            }
+                            
+                        </ul>
+                        <img src="@item.Photos.FirstOrDefault().Path" alt="Image" class="img-fluid">
+                    </figure>
+                    <div class="p-3">
+                        <h3>@item.Name</h3>
+                        <span class="position">Color: @item.Color</span><br>
+                        <span class="position">Weight: @item.Weight</span><br>
+                        <span class="position">Quantity: @item.Quantity</span><br>
+                        <span class="position">Brand: @item.Brand</span><br>
+                        <span>@item.Description</span>
+                    </div>
+                </div>
+            </div>
+            }
+           
+        </div>
+    </div>
+</section>
+<script>
+function editProduct(){
+    alert("Go down and edit product by Name. (Name is key value.)")
+}
+</script>
+<script>
+function commentProduct(){
+    alert("Go down and make your comment by Name. (Name is key value.)")
+}
+</script>
+
+                        
