@@ -10,6 +10,15 @@ Simple e-commerce website project which has been written with .Net Core 6.0, Ent
 * Microsoft SQL Server.<br>
 ### Installing<br>
 * Download files and run solution file with IDE. The project will create local database and seed data into.<br>
+* Credentials for Sysadmin role:<br>
+  * Username: sysadmin<br>
+  * Password: Sysadmin1.<br>
+* Credentials for Admin role:<br>
+  * Username: admin<br>
+  * Password: Admin1.<br>
+* Credentials for Customer role:<br>
+  * Username: customer<br>
+  * Password: Customer1.<br>
 ### Version History
 * 1.0<br>
   * Initial relase.<br>
